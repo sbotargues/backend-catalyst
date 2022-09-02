@@ -28,18 +28,18 @@ This example starts an [ExpressJS](https://expressjs.com/) server that connects 
 
 ## 📝 Notes
 
-The starter contains a single `Country` model that you can read from and write to.
+The starter contains a single `Comment` model that you can read from and write to.
 
 There are two main routes on the server:
 
-- A `GET` route - `/countries` which returns all the countries
-- A `POST` route - `/countries` which can be used to add a new country
+- A `GET` route - `/comments` which returns all the comments
+- A `POST` route - `/comments` which can be used to add a new comment
 
-Example post request to add a new country:
+Example post request to add a new comment:
 
 ```
 curl -H "Content-Type: application/json" \
   --request POST \
   -d '{"name":"India","iso2code":"IN"}' \
-  http://localhost:3333/countries
+  http://localhost:3333/comments
 ```
