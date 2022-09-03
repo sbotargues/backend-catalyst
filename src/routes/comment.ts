@@ -27,7 +27,6 @@ routes.post("/", async (req, res) => {
         .status(409)
         .json({ error: "There is already another comment with this name" });
     }
-
     const newComment = await CommentModel.create(comment);
     return res.status(201).json(newComment);
   } catch (error) {
