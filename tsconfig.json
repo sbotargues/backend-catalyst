@@ -1,13 +1,29 @@
+
 {
   "compilerOptions": {
-    "outDir": "dist",
+    "target": "es2016",
+    "paths": {
+      "@": ["/uploads"]
+    },
 
-    "incremental": true,
-    "target": "es6",
+    /* Modules */
     "module": "commonjs",
-    "strict": true,
+    "rootDir": "./src",
+
+    "outDir": "./dist",
+
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  }
+
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+
+    /* Type Checking */
+    "strict": true /* Enable all strict type-checking options. */,
+
+    /* Completeness */
+
+    "skipLibCheck": true
+  },
+
+  "include": ["./src"],
+  "typeRoots": ["../global.d.ts", "./node_modules/@types"]
 }
