@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>jQuery - $ is not defined</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+<script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('#searchbox').autocomplete({
+        source: function(Query, Response) {
+            console.log("query===",Query)
+            $.ajax({
+            	url: "https://completion.amazon.com/search/complete",
+		          dataType: "jsonp",
+		          data: {
+		            q: Query.term,
+		            "search-alias": "aps",
+		            client: "amazon-search-ui",
+		            mkt: 1,
+
+		          },
+                success: function(Data) {
+
+                    if (Data) {
+                        var DataArr = Data.toString().split(',');
+                        var Queries = new Array();
+                        for (var q = 1; q < (DataArr.length - 1); q++) {
+                            DataArr[q] = $.trim(DataArr[q]);
+                            if (0 < DataArr[q].length && DataArr[q] != '[object Object]' && !$.isNumeric(DataArr[q])) {
+                                Queries.push(DataArr[q]);
+                            }
+                        }
+                        if (0 < Queries.length) {
+                            Response(Queries);
+                        }
+                    }
+                }
+            });
+        },
+        delay: 1000,
+        minLength: 2
+    });    
+});
+</script>
+</head>
+<body>
+    <input type="text" class="form-control" id="searchbox" placeholder="Search for...">
+</body>
+</html>
