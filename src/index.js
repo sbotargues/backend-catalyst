@@ -8,7 +8,8 @@ const app = express();
 const port = process.env.PORT || 3333;
 
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors())
+
+app.use(cors());
 app.use(bodyParser.json())
 
 app.use(express.json());
@@ -20,6 +21,9 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/comments", commentRoutes);
+require("./app/routes/auth.routes")(app);
+require("./app/routes/user.routes")(app);
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

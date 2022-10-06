@@ -7,24 +7,25 @@ if (!process.env.MONGO_URL) {
   throw new Error("Please add the MONGO_URL environment variable");
 }
 
-mongoose.connect(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-const database = mongoose.connection;
-
 require("../app/routes/auth.routes")(app);
 require("../app/routes/user.routes")(app);
 
-database.on(
-  "error",
-  console.error.bind(console, "❌ mongodb connection error"),
-);
-database.once("open", () => initial(), console.log("✅ mongodb connected successfully"));
-
 const db = require("../app/models");
 const Role = db.role;
+
+db.mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log("Successfully connect to MongoDB.");
+    initial();
+  })
+  .catch(err => {
+    console.error("Connection error", err);
+    process.exit();
+  });
 
 function initial() {
   Role.estimatedDocumentCount((err, count) => {
