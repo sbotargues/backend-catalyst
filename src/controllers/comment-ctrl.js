@@ -1,6 +1,6 @@
-const Politician = require('../models/comment')
+const comment = require('../models/comment')
 
-createPolitician = (req, res) => {
+createcomment = (req, res) => {
     const body = req.body
 
     if (!body) {
@@ -10,18 +10,18 @@ createPolitician = (req, res) => {
         })
     }
 
-    const politician = new Politician(body)
+    const comment = new comment(body)
 
-    if (!politician) {
+    if (!comment) {
         return res.status(400).json({ success: false, error: err })
     }
 
-    politician
+    comment
         .save()
         .then(() => {
             return res.status(201).json({
                 success: true,
-                id: politician._id,
+                id: comment._id,
                 message: 'Político creado!',
             })
         })
@@ -33,7 +33,7 @@ createPolitician = (req, res) => {
         })
 }
 
-updatePolitician = async (req, res) => {
+updatecomment = async (req, res) => {
     const body = req.body
 
     if (!body) {
@@ -43,23 +43,24 @@ updatePolitician = async (req, res) => {
         })
     }
 
-    Politician.findOne({ _id: req.params.id }, (err, politician) => {
+    comment.findOne({ _id: req.params.id }, (err, comment) => {
         if (err) {
             return res.status(404).json({
                 err,
                 message: 'Político no encontrado!',
             })
         }
-        politician.nombre = body.nombre
-        politician.apellidos = body.apellidos
-        politician.salarioAnual = body.salarioAnual
-        politician.partido = body.partido
-        politician
+        console.log("hola")
+        comment.nombre = body.nombre
+        comment.apellidos = body.apellidos
+        comment.salarioAnual = body.salarioAnual
+        comment.partido = body.partido
+        comment
             .save()
             .then(() => {
                 return res.status(200).json({
                     success: true,
-                    id: politician._id,
+                    id: comment._id,
                     message: 'Político actualizado!',
                 })
             })
@@ -72,55 +73,55 @@ updatePolitician = async (req, res) => {
     })
 }
 
-deletePolitician = async (req, res) => {
-    await Politician.findOneAndDelete({ _id: req.params.id }, (err, politician) => {
+deletecomment = async (req, res) => {
+    await comment.findOneAndDelete({ _id: req.params.id }, (err, comment) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
 
-        if (!politician) {
+        if (!comment) {
             return res
                 .status(404)
                 .json({ success: false, error: `Político no encontrado` })
         }
 
-        return res.status(200).json({ success: true, data: politician })
+        return res.status(200).json({ success: true, data: comment })
     }).catch(err => console.log(err))
 }
 
-getPoliticianById = async (req, res) => {
-    await Politician.findOne({ _id: req.params.id }, (err, politician) => {
+getcommentById = async (req, res) => {
+    await comment.findOne({ _id: req.params.id }, (err, comment) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
 
-        if (!politician) {
+        if (!comment) {
             return res
                 .status(404)
                 .json({ success: false, error: `Político no encontrado` })
         }
-        return res.status(200).json({ success: true, data: politician })
+        return res.status(200).json({ success: true, data: comment })
     }).catch(err => console.log(err))
 }
 
-getPoliticians = async (req, res) => {
-    await Politician.find({}, (err, politicians) => {
+getcomments = async (req, res) => {
+    await comment.find({}, (err, comments) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
-        if (!politicians.length) {
+        if (!comments.length) {
             return res
                 .status(404)
                 .json({ success: false, error: `Político no encontrado` })
         }
-        return res.status(200).json({ success: true, data: politicians })
+        return res.status(200).json({ success: true, data: comments })
     }).catch(err => console.log(err))
 }
 
 module.exports = {
-    createPolitician,
-    updatePolitician,
-    deletePolitician,
-    getPoliticians,
-    getPoliticianById,
+    createcomment,
+    updatecomment,
+    deletecomment,
+    getcomments,
+    getcommentById,
 }

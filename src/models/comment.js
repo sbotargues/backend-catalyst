@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const Politician = new Schema(
+const comment = new Schema(
     {
         nombre: { type: String, required: true },
         apellidos: { type: String, required: true },
@@ -11,4 +11,4 @@ const Politician = new Schema(
     { timestamps: true },
 )
 
-module.exports = mongoose.model('politicians', Politician)
+module.exports = mongoose.model('comments', comment)

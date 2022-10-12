@@ -1,13 +1,13 @@
 const express = require('express')
 
-const PoliticianCtrl = require('../controllers/comment-ctrl')
+const commentCtrl = require('../controllers/comment-ctrl')
 
 const router = express.Router()
 
-router.post('/', PoliticianCtrl.createPolitician)
-router.put('/:id', PoliticianCtrl.updatePolitician)
-router.delete('/:id', PoliticianCtrl.deletePolitician)
-router.get('/:id', PoliticianCtrl.getPoliticianById)
-router.get('/', PoliticianCtrl.getPoliticians)
+router.post('/', commentCtrl.createcomment)
+router.put('/:id', commentCtrl.updatecomment)
+router.delete('/:id', commentCtrl.deletecomment)
+router.get('/:id', commentCtrl.getcommentById)
+router.get('/', commentCtrl.getcomments)
 
 module.exports = router
