@@ -6,7 +6,6 @@
   "author": "Sergi Botargues",
   "license": "MIT",
   "scripts": {
-    "build": "nodemon src/index.js",
     "start": "nodemon src/index.js"
   },
   "dependencies": {
