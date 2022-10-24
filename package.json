@@ -6,9 +6,8 @@
   "author": "Sergi Botargues",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/index.js",
     "build": "node src/index.js",
-    "start": "node dist/src/index.js"
+    "start": "node src/index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
