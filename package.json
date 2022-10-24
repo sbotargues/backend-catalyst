@@ -2,12 +2,12 @@
   "name": "expressjs-mongoose",
   "private": true,
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "node index.js",
   "author": "Sergi Botargues",
   "license": "MIT",
   "scripts": {
-    "build": "node src/index.js",
-    "start": "node src/index.js"
+    "build": "nodemon src/index.js",
+    "start": "nodemon src/index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
