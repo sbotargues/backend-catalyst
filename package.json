@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "build": "jsc",
+    "build": "es6",
     "start": "node dist/index.js"
   },
   "dependencies": {
