@@ -1,6 +1,7 @@
 require("./lib/db");
 const express = require("express");
-const commentRoutes = require("./routes/comment");
+const commentRoutes = require("./app/routes/comment");
+const questionsRoutes = require("./app/routes/Questions");
 const bodyParser = require('body-parser')
 const cors = require('cors');
 
@@ -21,6 +22,7 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/comments", commentRoutes);
+app.use("/questions", questionsRoutes);
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 
