@@ -16,7 +16,8 @@ const User = mongoose.model(
         ref: "Role"
       }
     ]
-  })
+  },
+  { timestamps: true },)
 );
 
 module.exports = User;

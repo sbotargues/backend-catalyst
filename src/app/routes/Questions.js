@@ -1,6 +1,6 @@
 const express = require('express')
 
-const QuestionLoginCtrl = require('../controllers/Questions')
+const QuestionLoginCtrl = require('../controllers/questions')
 
 const router = express.Router()
 
