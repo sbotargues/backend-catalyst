@@ -1,70 +1,70 @@
-const LoginInformation = require('../models/Login');
+const Event = require('../models/event')
 
-createLoginInformation = (req, res) => {
+createEvent = (req, res) => {
     const body = req.body
 
     if (!body) {
         return res.status(400).json({
             success: false,
-            error: 'Debe proporcionar una respuesta',
+            error: 'Debe proporcionar un evento',
         })
     }
 
-    const loginInformation = new LoginInformation(body)
+    const event = new Event(body)
 
-    if (!loginInformation) {
+    if (!event) {
         return res.status(400).json({ success: false, error: err })
     }
 
-    loginInformation
+    event
         .save()
         .then(() => {
             return res.status(201).json({
                 success: true,
-                id: loginInformation._id,
-                message: 'Respuesta dada!',
+                id: event._id,
+                message: 'Evento enviado!',
             })
         })
         .catch(error => {
             return res.status(400).json({
                 error,
-                message: 'No ha respondido!',
+                message: 'No ha enviado ningun evento!',
             })
         })
 }
 
-getLoginInformationById = async (req, res) => {
-    await LoginInformation.findOne({ _id: req.params.id }, (err, loginInformation) => {
+getEventById = async (req, res) => {
+    await Event.find({ user: req.params.id }, (err, event) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
 
-        if (!loginInformation) {
+        if (!event) {
             return res
                 .status(404)
                 .json({ success: false, error: `no encontrado` })
         }
-        return res.status(200).json({ success: true, data: loginInformation })
+        return res.status(200).json({ success: true, data: event })
     }).catch(err => console.log(err))
 }
 
-getQuestionsLoginInformations = async (req, res) => {
-    await LoginInformation.find({}, (err, questionslogin) => {
+getEvents = async (req, res) => {
+    await Event.find({}, (err, event) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
-        if (!questionslogin.length) {
+        if (!event.length) {
             return res
                 .status(404)
                 .json({ success: false, error: `no encontrado` })
         }
-        return res.status(200).json({ success: true, data: questionslogin })
+        return res.status(200).json({ success: true, data: event })
     }).catch(err => console.log(err))
 }
 
 
 module.exports = {
-    createLoginInformation,
-    getQuestionsLoginInformations,
-    getLoginInformationById,
+    createEvent,
+    getEventById,
+    getEvents
 }

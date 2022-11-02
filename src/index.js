@@ -1,7 +1,8 @@
 require("./lib/db");
 const express = require("express");
 const commentRoutes = require("./app/routes/comment");
-const questionsRoutes = require("./app/routes/Questions");
+const questionsRoutes = require("./app/routes/questions");
+const eventsRoutes = require('./app/routes/event')
 const bodyParser = require('body-parser')
 const cors = require('cors');
 
@@ -23,8 +24,9 @@ app.get("/", async (req, res) => {
 
 app.use("/comments", commentRoutes);
 app.use("/questions", questionsRoutes);
-require("./app/routes/auth.routes")(app);
-require("./app/routes/user.routes")(app);
+app.use("/events", eventsRoutes)
+require("./app/routes/auth")(app);
+require("./app/routes/user")(app);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

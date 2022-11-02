@@ -7,8 +7,8 @@ if (!process.env.MONGO_URL) {
   throw new Error("Please add the MONGO_URL environment variable");
 }
 
-require("../app/routes/auth.routes")(app);
-require("../app/routes/user.routes")(app);
+require("../app/routes/auth")(app);
+require("../app/routes/user")(app);
 
 const db = require("../app/models");
 const Role = db.role;

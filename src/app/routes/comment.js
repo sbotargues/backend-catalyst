@@ -1,6 +1,6 @@
 const express = require('express')
 
-const PoliticianCtrl = require('../controllers/comment-ctrl')
+const PoliticianCtrl = require('../controllers/comment')
 
 const router = express.Router()
 
