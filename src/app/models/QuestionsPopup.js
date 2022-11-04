@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const QuestionsPopup = new Schema(
     {
-        questionOne: { type: Number },
+        questionOne: { type: String },
         questionTwo: { type: Number },
         user:[{ type: Schema.Types.ObjectId, ref: 'User' }]
     },
