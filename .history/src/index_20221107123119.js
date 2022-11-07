@@ -1,7 +1,6 @@
 require("./lib/db");
 const express = require("express");
 const commentRoutes = require("./app/routes/comment");
-const wordRoutes = require("./app/routes/word");
 const questionsRoutes = require("./app/routes/questions");
 const eventsRoutes = require('./app/routes/event')
 const bodyParser = require('body-parser')
@@ -24,7 +23,7 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/comments", commentRoutes);
-app.use("/words", wordRoutes);
+app.use("/words", commentRoutes);
 app.use("/questions", questionsRoutes);
 app.use("/events", eventsRoutes)
 require("./app/routes/auth")(app);
