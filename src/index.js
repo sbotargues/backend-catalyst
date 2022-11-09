@@ -2,7 +2,7 @@ require("./lib/db");
 const express = require("express");
 const commentRoutes = require("./app/routes/comment");
 const wordRoutes = require("./app/routes/word");
-const questionsRoutes = require("./app/routes/questions");
+const questionsRoutes = require("./app/routes/question");
 const eventsRoutes = require('./app/routes/event')
 const bodyParser = require('body-parser')
 const cors = require('cors');
