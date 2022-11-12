@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const QuestionsPopup = new Schema(
+const Questions = new Schema(
     {
+        questionLogin: { type: String },
         questionOne: { type: String },
         questionTwo: { type: Number },
         user:[{ type: Schema.Types.ObjectId, ref: 'User' }]
@@ -10,4 +11,4 @@ const QuestionsPopup = new Schema(
     { timestamps: true },
 )
 
-module.exports = mongoose.model('questionspopup', QuestionsPopup)
+module.exports = mongoose.model('questions', Questions)

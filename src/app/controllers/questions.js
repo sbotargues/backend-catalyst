@@ -1,7 +1,6 @@
-const QuestionLogin = require('../models/QuestionLogin');
-const QuestionsPopup = require('../models/QuestionsPopup');
+const Question = require('../models/Question');
 
-createQuestionLogin = (req, res) => {
+createQuestion = (req, res) => {
     const body = req.body
 
     if (!body) {
@@ -11,18 +10,18 @@ createQuestionLogin = (req, res) => {
         })
     }
 
-    const questionlogin = new QuestionLogin(body)
+    const question = new Question(body)
 
-    if (!questionlogin) {
+    if (!question) {
         return res.status(400).json({ success: false, error: err })
     }
 
-    questionlogin
+    question
         .save()
         .then(() => {
             return res.status(201).json({
                 success: true,
-                id: questionlogin._id,
+                id: question._id,
                 message: 'Respuesta dada!',
             })
         })
@@ -32,104 +31,74 @@ createQuestionLogin = (req, res) => {
                 message: 'No ha respondido!',
             })
         })
-}
+};
 
-getQuestionLoginById = async (req, res) => {
-    await QuestionLogin.findOne({ _id: req.params.id }, (err, questionlogin) => {
+getQuestionById = async (req, res) => {
+    await Question.findOne({ _id: req.params.id }, (err, question) => {
         if (err) {
             return res.status(400).json({ success: false, error: err })
         }
 
-        if (!questionlogin) {
+        if (!question) {
             return res
                 .status(404)
                 .json({ success: false, error: `no encontrado` })
         }
-        return res.status(200).json({ success: true, data: questionlogin })
+        return res.status(200).json({ success: true, data: question })
     }).catch(err => console.log(err))
+};
+
+getQuestions = async (req, res) => {
+    Question
+   .find({})
+   .populate("user") // key to populate
+   .then(user => {
+      res.json(user); 
+   });
 }
 
-getQuestionsLogins = async (req, res) => {
-    await QuestionLogin.find({}, (err, questionslogin) => {
-        if (err) {
-            return res.status(400).json({ success: false, error: err })
-        }
-        if (!questionslogin.length) {
-            return res
-                .status(404)
-                .json({ success: false, error: `no encontrado` })
-        }
-        return res.status(200).json({ success: true, data: questionslogin })
-    }).catch(err => console.log(err))
-}
-
-createQuestionsPopup = (req, res) => {
+updateQuestion = async (req, res) => {
     const body = req.body
 
     if (!body) {
         return res.status(400).json({
             success: false,
-            error: 'Debe proporcionar una respuesta',
+            error: 'Debe proporcionar un body para actualizar',
         })
     }
 
-    const questionspopup = new QuestionsPopup(body)
-
-    if (!questionspopup) {
-        return res.status(400).json({ success: false, error: err })
-    }
-
-    questionspopup
-        .save()
-        .then(() => {
-            return res.status(201).json({
-                success: true,
-                id: questionspopup._id,
-                message: 'Respuesta dada!',
-            })
-        })
-        .catch(error => {
-            return res.status(400).json({
-                error,
-                message: 'No ha respondido!',
-            })
-        })
-}
-
-getQuestionPopupById = async (req, res) => {
-    await QuestionsPopup.findOne({ _id: req.params.id }, (err, questionspopup) => {
+    Question.findOne({ _id: req.params.id }, (err, question) => {
         if (err) {
-            return res.status(400).json({ success: false, error: err })
+            return res.status(404).json({
+                err,
+                message: 'Questionario no encontrado!',
+            })
         }
-
-        if (!questionspopup) {
-            return res
-                .status(404)
-                .json({ success: false, error: `no encontrado` })
-        }
-        return res.status(200).json({ success: true, data: questionspopup })
-    }).catch(err => console.log(err))
-}
-
-getQuestionsPopups = async (req, res) => {
-    await QuestionsPopup.find({}, (err, questionspopup) => {
-        if (err) {
-            return res.status(400).json({ success: false, error: err })
-        }
-        if (!questionspopup.length) {
-            return res
-                .status(404)
-                .json({ success: false, error: `no encontrado` })
-        }
-        return res.status(200).json({ success: true, data: questionspopup })
-    }).catch(err => console.log(err))
+        question.questionLogin = body.questionLogin
+        question.questionOne = body.questionOne
+        question.questionTwo = body.questionTwo
+        question.user = body.user
+        question
+            .save()
+            .then(() => {
+                return res.status(200).json({
+                    success: true,
+                    id: question._id,
+                    message: 'Questionario actualizado!',
+                })
+            })
+            .catch(error => {
+                return res.status(404).json({
+                    error,
+                    message: 'Questionario no actualizado!',
+                })
+            })
+    })
 }
 
 module.exports = {
-    createQuestionLogin,
-    getQuestionsLogins,
-    getQuestionLoginById,
-    createQuestionsPopup,
-    getQuestionsPopups,
-    getQuestionPopupById,
+    createQuestion,
+    getQuestions,
+    getQuestionById,
+    updateQuestion
 }

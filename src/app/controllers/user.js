@@ -26,6 +26,7 @@ exports.moderatorBoard = (req, res) => {
     const id = req.params.id;
 
     User.findById(id)
+      .populate("questions") 
       .then((data) => {
         if (!data)
           res.status(404).send({ message: "Not found User with id " + id });

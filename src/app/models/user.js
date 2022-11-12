@@ -9,7 +9,7 @@ const User = mongoose.model(
     role: String,
     email: String,
     password: String,
-    questionLogin: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Questionlogin'}],
+    questions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'questions'}],
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,
