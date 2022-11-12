@@ -1,4 +1,4 @@
-const Question = require('../models/Question');
+const Question = require('../models/question');
 
 createQuestion = (req, res) => {
     const body = req.body
