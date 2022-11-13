@@ -367,7 +367,7 @@ const data = [
     "6370b7afcddaab9327af8252",
     "6370b7afcddaab9327af8253",
     "6370b7afcddaab9327af8254"
-  ];
+  ]
         const randomWord = data[Math.floor(Math.random() * data.length)];
     await Word.findOne({ _id: randomWord }, (err, word) => {
         if (err) {
