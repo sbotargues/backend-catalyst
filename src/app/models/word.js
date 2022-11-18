@@ -125,4 +125,4 @@ const Words = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("words", Words);
+module.exports = mongoose.model("words-2000", Words);

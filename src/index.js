@@ -3,6 +3,7 @@ const express = require("express");
 const commentRoutes = require("./app/routes/comment");
 const wordRoutes = require("./app/routes/word");
 const questionsRoutes = require("./app/routes/question");
+const feedbackRoutes = require("./app/routes/feedback")
 const eventsRoutes = require('./app/routes/event')
 const bodyParser = require('body-parser')
 const cors = require('cors');
@@ -26,6 +27,7 @@ app.get("/", async (req, res) => {
 app.use("/comments", commentRoutes);
 app.use("/words", wordRoutes);
 app.use("/questions", questionsRoutes);
+app.use("/feedback", feedbackRoutes);
 app.use("/events", eventsRoutes)
 require("./app/routes/auth")(app);
 require("./app/routes/user")(app);
